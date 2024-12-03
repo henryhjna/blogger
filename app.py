@@ -37,18 +37,13 @@ if st.button("블로그 글 생성"):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
                     max_iterations=3,
-                    callback=lambda researcher_msg, reviewer_msg, iteration: st.markdown(
-                        f"""
-                        <div class="character researcher">
-                            <img src="assets/researcher.png" alt="Researcher">
-                            <div class="speech-bubble">{researcher_msg}</div>
-                        </div>
-                        <div class="character reviewer">
-                            <img src="assets/reviewer.png" alt="Reviewer">
-                            <div class="speech-bubble">{reviewer_msg}</div>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
+                    callback=lambda researcher_msg, reviewer_msg, iteration: st.container(
+                        {
+                            st.image(os.path.join("assets", "researcher.png"), width=100, caption="Researcher"),
+                            st.markdown(f"<div class='speech-bubble'>{researcher_msg}</div>", unsafe_allow_html=True),
+                            st.image(os.path.join("assets", "reviewer.png"), width=100, caption="Reviewer"),
+                            st.markdown(f"<div class='speech-bubble'>{reviewer_msg}</div>", unsafe_allow_html=True),
+                        }
                     )
                 )
             st.success("Research Collaboration 완료!")
@@ -64,18 +59,13 @@ if st.button("블로그 글 생성"):
                 blog_result = writer_reviewer_collaboration(
                     research_result,
                     max_iterations=3,
-                    callback=lambda writer_msg, reviewer_msg, iteration: st.markdown(
-                        f"""
-                        <div class="character writer">
-                            <img src="assets/writer.png" alt="Writer">
-                            <div class="speech-bubble">{writer_msg}</div>
-                        </div>
-                        <div class="character reviewer">
-                            <img src="assets/reviewer.png" alt="Reviewer">
-                            <div class="speech-bubble">{reviewer_msg}</div>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
+                    callback=lambda writer_msg, reviewer_msg, iteration: st.container(
+                        {
+                            st.image(os.path.join("assets", "writer.png"), width=100, caption="Writer"),
+                            st.markdown(f"<div class='speech-bubble'>{writer_msg}</div>", unsafe_allow_html=True),
+                            st.image(os.path.join("assets", "reviewer.png"), width=100, caption="Reviewer"),
+                            st.markdown(f"<div class='speech-bubble'>{reviewer_msg}</div>", unsafe_allow_html=True),
+                        }
                     )
                 )
             st.success("Writing Collaboration 완료!")
