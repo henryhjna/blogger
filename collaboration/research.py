@@ -20,8 +20,8 @@ def researcher_reviewer_collaboration(topic, max_iterations=3, callback=None):
 
         # 콜백 함수 호출 (진행 상황 표시)
         if callback:
-            researcher_msg = f"Researcher: Iteration {iteration + 1} - {research_result}"
-            reviewer_msg = f"Reviewer Feedback: {feedback}"
+            researcher_msg = f"컨텐츠 연구원 {iteration + 1}회차 조사: \n{research_result}"
+            reviewer_msg = f"편집자 피드백: \n{feedback}"
             callback(researcher_msg, reviewer_msg, iteration)
 
         research_result = research_agent(topic, feedback, feedback_history[:-1])

@@ -1,4 +1,5 @@
 import streamlit as st
+from agents import image_locator
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
@@ -26,13 +27,12 @@ topic_input = st.text_input("주제를 입력하세요 (예: '바르셀로나'):
 if st.button("블로그 글 생성"):
     if topic_input.strip():
         st.write(f"선택한 주제: {topic_input}")
-        common_topic = topic_input
 
         # Research 단계
         try:
             with st.spinner(f"컨텐츠 연구원과 편집자가 협력해 {topic_input}에 대해 리서치하고 있습니다..."):
                 research_result = researcher_reviewer_collaboration(
-                    common_topic,
+                    topic_input,
                     max_iterations=3,
                     callback=lambda researcher_msg, reviewer_msg, iteration: (
                         display_interaction("researcher", researcher_msg, "컨텐츠 연구원"),
@@ -40,7 +40,7 @@ if st.button("블로그 글 생성"):
                     )
                 )
             st.success(f"{topic_input}에 대한 리서치 완료!")
-            st.write(f"*최종 Research 결과:*\n{research_result}")
+            st.write(f"\n{research_result}")
         except Exception as e:
             st.error(f"Research Collaboration 중 오류 발생: {e}")
             st.stop()
@@ -56,9 +56,13 @@ if st.button("블로그 글 생성"):
                         display_interaction("reviewer", reviewer_msg, "편집자", is_reviewer=True)
                     )
                 )
+            image_locator_result = image_locator(blog_result)
             st.success("블로그 작성 완료!")
-            st.markdown(f"*생성된 블로그 글:*\n\n{blog_result}")
+            st.markdown(f"\n{blog_result}")
+            st.markdown(f"\n{image_locator_result}")
         except Exception as e:
             st.error(f"Writing Collaboration 중 오류 발생: {e}")
+
+        st.markdown(f"\n{blog_result}")
     else:
         st.warning("올바른 주제를 입력하세요.")

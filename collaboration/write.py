@@ -20,8 +20,8 @@ def writer_reviewer_collaboration(research_result, max_iterations=3, callback=No
 
         # 콜백 함수 호출 (진행 상황 표시)
         if callback:
-            writer_msg = f"Writer: Iteration {iteration + 1} - {blog_result}"
-            reviewer_msg = f"Reviewer Feedback: {feedback}"
+            writer_msg = f"작가 {iteration + 1}회자 작성 : \n{blog_result}"
+            reviewer_msg = f"편집자 피드백: \n{feedback}"
             callback(writer_msg, reviewer_msg, iteration)
 
         blog_result = blog_writer(blog_result, feedback, feedback_history[:-1])
