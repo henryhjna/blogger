@@ -1,8 +1,8 @@
-import os
 from openai import OpenAI
+from utils import get_openai_api_key
 
-# 환경 변수에서 API 키 가져오기
-openai_api_key = os.getenv("OPENAI_API_KEY")
+# OpenAI API 키 로드
+openai_api_key = get_openai_api_key()
 
 if not openai_api_key:
     raise ValueError("API 키가 설정되지 않았습니다. 'config/env.py'를 확인하세요.")

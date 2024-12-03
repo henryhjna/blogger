@@ -1,7 +1,14 @@
-import config.env
 import streamlit as st
+from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
+
+# OpenAI API 키 로드
+try:
+    openai_api_key = get_openai_api_key()
+except KeyError:
+    st.error("API 키를 로드할 수 없습니다. 로컬에서는 'config/env.py'를 확인하세요.")
+    raise
 
 # Streamlit 앱
 st.title("블로그 작성기")
