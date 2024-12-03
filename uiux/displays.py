@@ -11,34 +11,30 @@ def display_interaction(character_type, message, is_reviewer=False):
     # 텍스트 안전 처리
     message = html.escape(message)
 
-    # 캐릭터 위치에 따라 정렬 설정
-    char_class = "reviewer" if is_reviewer else character_type
+    # 캐릭터 이미지 경로
     image_path = f"assets/{character_type}.png"
 
     with st.container():
-        # 좌우 정렬에 따라 열 구성
-        col1, col2 = st.columns([1, 4] if is_reviewer else [4, 1])
+        # 열 구성을 통해 캐릭터와 말풍선 배치
         if is_reviewer:
+            col1, col2 = st.columns([4, 1])  # 오른쪽 정렬
             with col1:
-                st.image(image_path, width=100)
-            with col2:
                 st.markdown(
                     f"""
-                    <div class="character {char_class}">
-                        <div class="speech-bubble">{message}</div>
-                    </div>
+                    <div class="speech-bubble">{message}</div>
                     """,
                     unsafe_allow_html=True
                 )
+            with col2:
+                st.image(image_path, width=100)
         else:
+            col1, col2 = st.columns([1, 4])  # 왼쪽 정렬
             with col1:
+                st.image(image_path, width=100)
+            with col2:
                 st.markdown(
                     f"""
-                    <div class="character {char_class}">
-                        <div class="speech-bubble">{message}</div>
-                    </div>
+                    <div class="speech-bubble">{message}</div>
                     """,
                     unsafe_allow_html=True
                 )
-            with col2:
-                st.image(image_path, width=100)

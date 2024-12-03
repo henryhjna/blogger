@@ -1,6 +1,4 @@
 import streamlit as st
-import os
-import html
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
@@ -18,22 +16,19 @@ def load_css(file_path):
     with open(file_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-load_css("uiux/styles.css")
+load_css("static/styles.css")
 
-# Streamlit 앱
 st.title("블로그 작성기")
 st.write("주제를 입력하면 LLM-based Multi Agents들이 블로그 글을 작성합니다.")
 
-# 사용자 입력
 topic_input = st.text_input("주제를 입력하세요 (예: '바르셀로나'):")
 
 if st.button("블로그 글 생성"):
     if topic_input.strip():
-        # 공통 주제를 설정
         st.write(f"선택한 주제: {topic_input}")
         common_topic = topic_input
 
-        # Research 단계g
+        # Research 단계
         try:
             st.write("**Research Collaboration Process**")
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
