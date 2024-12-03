@@ -35,8 +35,8 @@ if st.button("블로그 글 생성"):
                     common_topic,
                     max_iterations=3,
                     callback=lambda researcher_msg, reviewer_msg, iteration: (
-                        display_interaction("researcher", researcher_msg),
-                        display_interaction("reviewer", reviewer_msg, is_reviewer=True)
+                        display_interaction("researcher", researcher_msg, "컨텐츠 연구원"),
+                        display_interaction("reviewer", reviewer_msg, "편집자",is_reviewer=True)
                     )
                 )
             st.success("Research Collaboration 완료!")
@@ -52,8 +52,8 @@ if st.button("블로그 글 생성"):
                     research_result,
                     max_iterations=3,
                     callback=lambda writer_msg, reviewer_msg, iteration: (
-                        display_interaction("writer", writer_msg),
-                        display_interaction("reviewer", reviewer_msg, is_reviewer=True)
+                        display_interaction("writer", writer_msg, "블로그 작가"),
+                        display_interaction("reviewer", reviewer_msg, "편집자", is_reviewer=True)
                     )
                 )
             st.success("Writing Collaboration 완료!")

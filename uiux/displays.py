@@ -2,7 +2,7 @@ import streamlit as st
 import html
 import html2text
 
-def display_interaction(character_type, message, is_reviewer=False):
+def display_interaction(character_type, message, character_name, is_reviewer=False):
     """
     캐릭터와 메시지를 화면에 표시합니다.
     - character_type: "researcher", "writer", 또는 "reviewer"
@@ -12,7 +12,7 @@ def display_interaction(character_type, message, is_reviewer=False):
     # HTML을 Markdown 텍스트로 변환
     h = html2text.HTML2Text()
     h.ignore_links = True  # 링크는 제거
-    h.body_width = 0       # 줄바꿈 제거
+    #h.body_width = 0       # 줄바꿈 제거
     clean_message = h.handle(message)
 
     # 캐릭터 이미지 경로
@@ -24,11 +24,15 @@ def display_interaction(character_type, message, is_reviewer=False):
             col1, col2 = st.columns([4, 1])  # 오른쪽 정렬
             with col1:
                 st.markdown(f"<div class='speech-bubble'>{clean_message}</div>", unsafe_allow_html=True)
+                st.markdown()
             with col2:
                 st.image(image_path, width=100)
+                st.markdown(character_name)
         else:
             col1, col2 = st.columns([1, 4])  # 왼쪽 정렬
             with col1:
                 st.image(image_path, width=100)
+                st.markdown(character_name)
             with col2:
                 st.markdown(f"<div class='speech-bubble'>{clean_message}</div>", unsafe_allow_html=True)
+                st.markdown()
