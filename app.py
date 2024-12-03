@@ -4,6 +4,7 @@ import html
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
+from uiux.displays import display_interaction
 
 # OpenAI API 키 로드
 try:
@@ -17,39 +18,7 @@ def load_css(file_path):
     with open(file_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-load_css("static/styles.css")
-
-# 캐릭터와 말풍선을 표시하는 함수
-def display_interaction(character_type, message, is_reviewer=False):
-    """
-    캐릭터와 메시지를 화면에 표시합니다.
-    - character_type: "researcher", "writer", 또는 "reviewer"
-    - message: 캐릭터가 말하는 메시지
-    - is_reviewer: Reviewer인 경우 True
-    """
-    char_class = "reviewer" if is_reviewer else character_type
-    # 텍스트를 안전하게 처리
-    message = html.escape(message)
-
-    with st.container():
-        # Streamlit 이미지를 사용하여 그림 표시
-        col1, col2 = st.columns([1, 4] if is_reviewer else [4, 1])
-        if is_reviewer:
-            with col1:
-                st.image(f"assets/{character_type}.png", width=100)
-            with col2:
-                st.markdown(
-                    f"<div class='speech-bubble'>{message}</div>",
-                    unsafe_allow_html=True
-                )
-        else:
-            with col1:
-                st.markdown(
-                    f"<div class='speech-bubble'>{message}</div>",
-                    unsafe_allow_html=True
-                )
-            with col2:
-                st.image(f"assets/{character_type}.png", width=100)
+load_css("uiux/styles.css")
 
 # Streamlit 앱
 st.title("블로그 작성기")
@@ -64,7 +33,7 @@ if st.button("블로그 글 생성"):
         st.write(f"선택한 주제: {topic_input}")
         common_topic = topic_input
 
-        # Research 단계
+        # Research 단계g
         try:
             st.write("**Research Collaboration Process**")
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
