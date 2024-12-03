@@ -11,7 +11,7 @@ def call_openai(system_prompt, user_prompt):
     client = OpenAI(api_key=openai_api_key)
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system",
             "content": system_prompt},                                                    # 시스템 프롬프트
