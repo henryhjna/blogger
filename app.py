@@ -30,7 +30,7 @@ if st.button("블로그 글 생성"):
 
         # Research 단계
         try:
-            with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
+            with st.spinner(f"컨텐츠 연구원과 편집자가 협력해 {topic_input}에 대해 리서치하고 있습니다..."):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
                     max_iterations=3,
@@ -39,15 +39,15 @@ if st.button("블로그 글 생성"):
                         display_interaction("reviewer", reviewer_msg, "편집자",is_reviewer=True)
                     )
                 )
-            st.success("Research Collaboration 완료!")
-            st.write(f"**최종 Research 결과:**\n{research_result}")
+            st.success(f"{topic_input}에 대한 리서치 완료!")
+            st.write(f"*최종 Research 결과:*\n{research_result}")
         except Exception as e:
             st.error(f"Research Collaboration 중 오류 발생: {e}")
             st.stop()
 
         # Write 단계
         try:
-            with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
+            with st.spinner(f"리서치 결과를 바탕으로 블로그 작가와 편집자가 협력해 {topic_input}에 대한 블로그 글을 작성하고 있습니다..."):
                 blog_result = writer_reviewer_collaboration(
                     research_result,
                     max_iterations=3,
@@ -56,8 +56,8 @@ if st.button("블로그 글 생성"):
                         display_interaction("reviewer", reviewer_msg, "편집자", is_reviewer=True)
                     )
                 )
-            st.success("Writing Collaboration 완료!")
-            st.markdown(f"**생성된 블로그 글:**\n\n{blog_result}")
+            st.success("블로그 작성 완료!")
+            st.markdown(f"*생성된 블로그 글:*\n\n{blog_result}")
         except Exception as e:
             st.error(f"Writing Collaboration 중 오류 발생: {e}")
     else:
