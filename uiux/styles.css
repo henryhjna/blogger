@@ -13,7 +13,6 @@
 
 .character.researcher, .character.writer {
     justify-content: flex-start; /* 왼쪽 정렬 */
-    flex-direction: row; /* 기본: 이미지 왼쪽, 말풍선 오른쪽 */
 }
 
 .character.reviewer {
@@ -22,16 +21,16 @@
 }
 
 .speech-bubble {
-    display: inline-block; /* 말풍선을 박스 형태로 유지 */
-    max-width: 300px; /* 최대 너비 제한 */
+    display: inline-block; /* 박스 형태 유지 */
+    max-width: 300px; /* 최대 너비 */
     padding: 10px;
     border-radius: 10px;
     background-color: #f1f1f1;
     color: #333;
-    word-wrap: break-word; /* 긴 단어를 줄 바꿈 */
-    font-size: 0.75em;
-    margin: 0 10px;
+    font-size: 0.75em; /* 텍스트 크기 */
     line-height: 1.5; /* 줄 간격 */
-    white-space: pre-wrap; /* 공백과 줄 바꿈을 유지 */
+    word-wrap: break-word; /* 긴 단어를 줄 바꿈 */
+    white-space: pre-wrap; /* 공백과 줄 바꿈 유지 */
+    margin: 0 10px;
     text-align: left; /* 텍스트 정렬 */
 }
