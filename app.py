@@ -36,6 +36,7 @@ if st.button("블로그 글 생성"):
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
+                    max_iterations=3,
                     callback=lambda researcher_msg, reviewer_msg, iteration: st.markdown(
                         f"""
                         <div class="character researcher">
@@ -62,9 +63,10 @@ if st.button("블로그 글 생성"):
             with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
                 blog_result = writer_reviewer_collaboration(
                     research_result,
+                    max_iterations=3,
                     callback=lambda writer_msg, reviewer_msg, iteration: st.markdown(
                         f"""
-                        <div class="character researcher">
+                        <div class="character writer">
                             <img src="assets/writer.png" alt="Writer">
                             <div class="speech-bubble">{writer_msg}</div>
                         </div>
