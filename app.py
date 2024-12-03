@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
@@ -14,12 +13,8 @@ except KeyError:
 
 # CSS 로드
 def load_css(file_path):
-    static_path = os.path.join(os.getcwd(), file_path)
-    if os.path.exists(static_path):
-        with open(static_path) as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    else:
-        st.error(f"CSS 파일을 찾을 수 없습니다: {static_path}")
+    with open(file_path) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 load_css("uiux/styles.css")
 

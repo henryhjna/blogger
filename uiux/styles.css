@@ -21,18 +21,16 @@
 }
 
 .speech-bubble {
-    display: inline-block; /* 말풍선을 박스 형태로 유지 */
-    max-width: 300px; /* 최대 너비 */
+    display: inline-block;
+    max-width: 300px;
     padding: 10px;
     border-radius: 10px;
     background-color: #f1f1f1;
-    color: #333; /* 텍스트 색상 */
-    font-size: 12px; /* 텍스트 크기 */
-    line-height: 1.5; /* 줄 간격 */
-    word-wrap: break-word; /* 긴 단어 줄 바꿈 */
-    white-space: pre-wrap; /* 공백과 줄 바꿈 유지 */
+    color: #333;
+    font-size: 13px; /* 텍스트 크기 */
+    line-height: 1; /* 줄 간격 */
+    word-wrap: break-word;
+    white-space: pre-wrap; /* 공백과 줄바꿈 유지 */
     margin: 0 10px;
-    text-align: left; /* 텍스트 정렬 */
-    font-family: Arial, sans-serif; /* 폰트 지정 */
-    font-weight: normal; /* 폰트 두께 */
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
 }
