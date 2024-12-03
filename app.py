@@ -58,8 +58,9 @@ if st.button("블로그 글 생성"):
                 )
             image_locator_result = image_locator(blog_result)
             st.success("블로그 작성 완료!")
-            st.markdown(f"\n{blog_result}")
-            st.markdown(f"\n{image_locator_result}")
+            st.write(f"\n{blog_result}")
+            st.success("필요한 사진자료 출처")
+            st.write(f"\n{image_locator_result}")
         except Exception as e:
             st.error(f"Writing Collaboration 중 오류 발생: {e}")
 
