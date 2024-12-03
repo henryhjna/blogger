@@ -30,7 +30,6 @@ if st.button("블로그 글 생성"):
 
         # Research 단계
         try:
-            st.write("**Research Collaboration Process**")
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
@@ -48,7 +47,6 @@ if st.button("블로그 글 생성"):
 
         # Write 단계
         try:
-            st.write("**Writing Collaboration Process**")
             with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
                 blog_result = writer_reviewer_collaboration(
                     research_result,
