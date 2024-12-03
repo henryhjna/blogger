@@ -13,8 +13,12 @@ except KeyError:
 
 # CSS 로드
 def load_css(file_path):
-    with open(file_path) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    static_path = os.path.join(os.getcwd(), file_path)
+    if os.path.exists(static_path):
+        with open(static_path) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    else:
+        st.error(f"CSS 파일을 찾을 수 없습니다: {static_path}")
 
 load_css("uiux/styles.css")
 
