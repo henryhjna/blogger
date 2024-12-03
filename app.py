@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import html
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
@@ -18,10 +19,6 @@ def load_css(file_path):
 
 load_css("static/styles.css")
 
-# Streamlit 앱
-st.title("블로그 작성기")
-st.write("주제를 입력하면 LLM-based Multi Agents들이 블로그 글을 작성합니다.")
-
 # 캐릭터와 말풍선을 표시하는 함수
 def display_interaction(character_type, message, is_reviewer=False):
     """
@@ -30,19 +27,33 @@ def display_interaction(character_type, message, is_reviewer=False):
     - message: 캐릭터가 말하는 메시지
     - is_reviewer: Reviewer인 경우 True
     """
-    image_path = os.path.join("assets", f"{character_type}.png")
     char_class = "reviewer" if is_reviewer else character_type
+    # 텍스트를 안전하게 처리
+    message = html.escape(message)
 
     with st.container():
-        st.markdown(
-            f"""
-            <div class="character {char_class}">
-                <img src="{image_path}" alt="{character_type}">
-                <div class="speech-bubble">{message}</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        # Streamlit 이미지를 사용하여 그림 표시
+        col1, col2 = st.columns([1, 4] if is_reviewer else [4, 1])
+        if is_reviewer:
+            with col1:
+                st.image(f"assets/{character_type}.png", width=100)
+            with col2:
+                st.markdown(
+                    f"<div class='speech-bubble'>{message}</div>",
+                    unsafe_allow_html=True
+                )
+        else:
+            with col1:
+                st.markdown(
+                    f"<div class='speech-bubble'>{message}</div>",
+                    unsafe_allow_html=True
+                )
+            with col2:
+                st.image(f"assets/{character_type}.png", width=100)
+
+# Streamlit 앱
+st.title("블로그 작성기")
+st.write("주제를 입력하면 LLM-based Multi Agents들이 블로그 글을 작성합니다.")
 
 # 사용자 입력
 topic_input = st.text_input("주제를 입력하세요 (예: '바르셀로나'):")
@@ -55,6 +66,7 @@ if st.button("블로그 글 생성"):
 
         # Research 단계
         try:
+            st.write("**Research Collaboration Process**")
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
@@ -72,6 +84,7 @@ if st.button("블로그 글 생성"):
 
         # Write 단계
         try:
+            st.write("**Writing Collaboration Process**")
             with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
                 blog_result = writer_reviewer_collaboration(
                     research_result,
