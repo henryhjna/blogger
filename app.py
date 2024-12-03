@@ -65,13 +65,5 @@ if st.button("블로그 글 생성"):
         except Exception as e:
             st.error(f"Writing Collaboration 중 오류 발생: {e}")
 
-        # Quill Editor 추가
-        st.markdown("## 블로그 글 편집기")
-        edited_blog = st_quill(value=blog_result, key="quill_editor")  # blog_result를 기본값으로 설정
-
-        # 편집된 결과를 저장하거나 다른 작업에 활용
-        if st.button("저장"):
-            st.success("편집된 블로그 글이 저장되었습니다.")
-            st.write(f"저장된 글:\n{edited_blog}")
     else:
         st.warning("올바른 주제를 입력하세요.")
