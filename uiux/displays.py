@@ -24,7 +24,7 @@ def display_interaction(character_type, message, character_name, is_reviewer=Fal
             col1, col2 = st.columns([4, 1])  # 오른쪽 정렬
             with col1:
                 st.markdown(f"<div class='speech-bubble'>{clean_message}</div>", unsafe_allow_html=True)
-                st.markdown()
+                st.markdown(" ")
             with col2:
                 st.image(image_path, width=100)
                 st.markdown(character_name)
@@ -35,4 +35,4 @@ def display_interaction(character_type, message, character_name, is_reviewer=Fal
                 st.markdown(character_name)
             with col2:
                 st.markdown(f"<div class='speech-bubble'>{clean_message}</div>", unsafe_allow_html=True)
-                st.markdown()
+                st.markdown(" ")
