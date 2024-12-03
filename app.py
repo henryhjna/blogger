@@ -1,5 +1,5 @@
 import streamlit as st
-from agents import image_locator
+from agents.image_locator import image_locator
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
