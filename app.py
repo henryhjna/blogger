@@ -22,6 +22,14 @@ load_css("static/styles.css")
 st.title("블로그 작성기")
 st.write("주제를 입력하면 LLM-based Multi Agents들이 블로그 글을 작성합니다.")
 
+# 캐릭터와 말풍선을 표시하는 함수
+def display_interaction(character_type, message, is_reviewer=False):
+    """캐릭터와 메시지를 화면에 표시합니다."""
+    image_path = os.path.join("assets", f"{character_type}.png")
+    with st.container():
+        st.image(image_path, width=100, caption="Reviewer" if is_reviewer else "Researcher")
+        st.markdown(f"<div class='speech-bubble'>{message}</div>", unsafe_allow_html=True)
+
 # 사용자 입력
 topic_input = st.text_input("주제를 입력하세요 (예: '바르셀로나'):")
 
@@ -33,17 +41,14 @@ if st.button("블로그 글 생성"):
 
         # Research 단계
         try:
+            st.write("**Research Collaboration Process**")
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
                     max_iterations=3,
-                    callback=lambda researcher_msg, reviewer_msg, iteration: st.container(
-                        {
-                            st.image(os.path.join("assets", "researcher.png"), width=100, caption="Researcher"),
-                            st.markdown(f"<div class='speech-bubble'>{researcher_msg}</div>", unsafe_allow_html=True),
-                            st.image(os.path.join("assets", "reviewer.png"), width=100, caption="Reviewer"),
-                            st.markdown(f"<div class='speech-bubble'>{reviewer_msg}</div>", unsafe_allow_html=True),
-                        }
+                    callback=lambda researcher_msg, reviewer_msg, iteration: (
+                        display_interaction("researcher", researcher_msg),
+                        display_interaction("reviewer", reviewer_msg, is_reviewer=True)
                     )
                 )
             st.success("Research Collaboration 완료!")
@@ -54,17 +59,14 @@ if st.button("블로그 글 생성"):
 
         # Write 단계
         try:
+            st.write("**Writing Collaboration Process**")
             with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
                 blog_result = writer_reviewer_collaboration(
                     research_result,
                     max_iterations=3,
-                    callback=lambda writer_msg, reviewer_msg, iteration: st.container(
-                        {
-                            st.image(os.path.join("assets", "writer.png"), width=100, caption="Writer"),
-                            st.markdown(f"<div class='speech-bubble'>{writer_msg}</div>", unsafe_allow_html=True),
-                            st.image(os.path.join("assets", "reviewer.png"), width=100, caption="Reviewer"),
-                            st.markdown(f"<div class='speech-bubble'>{reviewer_msg}</div>", unsafe_allow_html=True),
-                        }
+                    callback=lambda writer_msg, reviewer_msg, iteration: (
+                        display_interaction("writer", writer_msg),
+                        display_interaction("reviewer", reviewer_msg, is_reviewer=True)
                     )
                 )
             st.success("Writing Collaboration 완료!")
