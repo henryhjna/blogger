@@ -16,7 +16,7 @@ def load_css(file_path):
     with open(file_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-load_css("static/styles.css")
+load_css("uiux/styles.css")
 
 st.title("블로그 작성기")
 st.write("주제를 입력하면 LLM-based Multi Agents들이 블로그 글을 작성합니다.")
