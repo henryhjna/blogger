@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from utils import get_openai_api_key
 from collaboration.research import researcher_reviewer_collaboration
 from collaboration.write import writer_reviewer_collaboration
@@ -31,7 +32,6 @@ if st.button("블로그 글 생성"):
         common_topic = topic_input
 
         # Research 단계
-        st.write("**Research Collaboration Process**")
         try:
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
                 research_result = researcher_reviewer_collaboration(
@@ -53,7 +53,6 @@ if st.button("블로그 글 생성"):
             st.stop()
 
         # Write 단계
-        st.write("**Writing Collaboration Process**")
         try:
             with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
                 blog_result = writer_reviewer_collaboration(
