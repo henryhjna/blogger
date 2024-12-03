@@ -24,11 +24,25 @@ st.write("주제를 입력하면 LLM-based Multi Agents들이 블로그 글을 �
 
 # 캐릭터와 말풍선을 표시하는 함수
 def display_interaction(character_type, message, is_reviewer=False):
-    """캐릭터와 메시지를 화면에 표시합니다."""
+    """
+    캐릭터와 메시지를 화면에 표시합니다.
+    - character_type: "researcher", "writer", 또는 "reviewer"
+    - message: 캐릭터가 말하는 메시지
+    - is_reviewer: Reviewer인 경우 True
+    """
     image_path = os.path.join("assets", f"{character_type}.png")
+    char_class = "reviewer" if is_reviewer else character_type
+
     with st.container():
-        st.image(image_path, width=100, caption="Reviewer" if is_reviewer else "Researcher")
-        st.markdown(f"<div class='speech-bubble'>{message}</div>", unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div class="character {char_class}">
+                <img src="{image_path}" alt="{character_type}">
+                <div class="speech-bubble">{message}</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 # 사용자 입력
 topic_input = st.text_input("주제를 입력하세요 (예: '바르셀로나'):")
@@ -41,7 +55,6 @@ if st.button("블로그 글 생성"):
 
         # Research 단계
         try:
-            st.write("**Research Collaboration Process**")
             with st.spinner("Research Agent와 Reviewer Agent가 협업 중입니다..."):
                 research_result = researcher_reviewer_collaboration(
                     common_topic,
@@ -59,7 +72,6 @@ if st.button("블로그 글 생성"):
 
         # Write 단계
         try:
-            st.write("**Writing Collaboration Process**")
             with st.spinner("Writer Agent와 Reviewer Agent가 협업 중입니다..."):
                 blog_result = writer_reviewer_collaboration(
                     research_result,

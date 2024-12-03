@@ -1,33 +1,34 @@
 .character {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .character img {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: auto;
     border-radius: 50%;
     margin-right: 10px;
 }
 
+.character.researcher, .character.writer {
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.character.reviewer {
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    flex-direction: row-reverse;
+}
+
 .speech-bubble {
-    font-size: 0.3em; 
+    display: inline-block; /* 말풍선을 박스 형태로 유지 */
+    max-width: 300px;
     padding: 10px;
     border-radius: 10px;
     background-color: #f1f1f1;
     color: #333;
-    display: inline-block;
-    max-width: 500px;
-    word-wrap: break-word;
-    margin: 10px 0;
-}
-
-
-.researcher {
-    flex-direction: row-reverse;
-}
-
-.reviewer {
-    flex-direction: row;
+    word-wrap: break-word; /* 긴 텍스트를 줄 바꿈 */
+    font-size: 0.85em;
+    margin: 0 10px;
+    text-align: left;
 }
